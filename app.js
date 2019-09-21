@@ -9,12 +9,9 @@ const worker = new TesseractWorker();
 //Storage
 
 const storage = multer.diskStorage({
-    destination: (req,res,callback) => {
+    destination: (req, file, callback) => {
         callback(null, "./uploads");
     },
-    filename: (req,res,callback) => {
-        callback(null, req.file);
-    }
 });
 
 const upload = multer({storage: storage}).single('avatar');
@@ -23,6 +20,12 @@ app.set('view engine', "ejs");
 
 app.get('/', (req, res) => {
     res.render("index");
+})
+
+app.post('/upload', (req, res) => {
+    upload(req, res, err => {
+        console.log(req.file);
+    })
 })
 
 const PORT = 5000 || process.env.PORT;
