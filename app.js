@@ -19,7 +19,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage}).single('avatar');
 app.set('view engine', "ejs");
+// Routes here
 
+app.get('/', (req, res) => {
+    res.render("index");
+})
 
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
